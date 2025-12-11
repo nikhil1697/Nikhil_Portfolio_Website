@@ -1,10 +1,10 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { 
   Terminal, Server, Box, Activity, GitBranch, 
-  Award, Download, Printer, Database, 
+  Award, Download, Printer, 
   Cloud, FileCode, CheckCircle2, LayoutDashboard,
   MapPin, Mail, Phone, ExternalLink, X, Maximize2, Github,
-  Search, MessageSquare, Shield, Globe, Menu, Rocket, Check, Power
+  Search, MessageSquare, Menu, Rocket, Check
 } from 'lucide-react';
 import { RESUME_DATA } from './constants';
 import { InteractiveTerminal } from './components/InteractiveTerminal';
@@ -642,7 +642,7 @@ const App: React.FC = () => {
                   {filteredProjects.map((proj, idx) => {
                     const showAll = printMode || searchQuery;
                     const displayItems = showAll ? proj.description : proj.description.slice(0, 2);
-                    const hasMore = proj.description.length > 2;
+                    // unused 'hasMore' removed
 
                     return (
                       <div 
