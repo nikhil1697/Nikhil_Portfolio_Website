@@ -1,0 +1,5 @@
+{
+  "name": "DevOps Dashboard Resume",
+  "description": "A responsive, interactive resume modeled after a Kubernetes/Cloud Console dashboard, optimized for a Senior DevOps Engineer. Includes a print-friendly toggle.",
+  "requestFramePermissions": []
+}
