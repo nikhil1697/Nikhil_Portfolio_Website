@@ -15,7 +15,6 @@ import { SkillRadar } from './components/SkillRadar';
 import { ContactModal } from './components/ContactModal';
 import { CommandPalette } from './components/CommandPalette';
 import { LiveEvents } from './components/LiveEvents';
-import { ResourceChart } from './components/ResourceChart';
 import { Experience, Project } from './types';
 
 // Declare html2pdf on window
@@ -342,11 +341,12 @@ const App: React.FC = () => {
               {deployStep === 'pushing' && <Cloud size={14} className="animate-pulse" />}
               {deployStep === 'deployed' && <Check size={14} />}
               
-              <span className="hidden lg:inline">
-                {deployStep === 'idle' ? 'DEPLOY v2.0' : 
-                 deployStep === 'building' ? 'BUILDING...' : 
-                 deployStep === 'pushing' ? 'PUSHING...' : 'DEPLOYED'}
-              </span>
+              {deployStep !== 'idle' && (
+                <span className="hidden lg:inline">
+                  {deployStep === 'building' ? 'BUILDING...' : 
+                   deployStep === 'pushing' ? 'PUSHING...' : 'DEPLOYED'}
+                </span>
+              )}
             </button>
           )}
 
@@ -396,11 +396,7 @@ const App: React.FC = () => {
           ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
         `}>
           <div className="flex-1 overflow-y-auto">
-            <div className="px-4 py-6">
-              <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-2">
-                 <Box size={10} /> Cluster Resources
-              </div>
-            </div>
+            <div className="pt-6"></div>
             <nav className="space-y-0.5 px-2">
               <SidebarItem id="overview" icon={Activity} label="Overview" />
               <SidebarItem id="workloads" icon={Box} label="Workloads" count={filteredExperience.length} />
@@ -503,13 +499,6 @@ const App: React.FC = () => {
                     <SectionHeader title="System Log" icon={Terminal} />
                     <InteractiveTerminal initialMessage={RESUME_DATA.summary} printMode={printMode} onPrint={togglePrintMode} />
                   </div>
-                  
-                  {/* Resource Monitoring Chart (New Addition) */}
-                  {!printMode && (
-                    <div className="hidden lg:block">
-                      <ResourceChart printMode={printMode} />
-                    </div>
-                  )}
 
                   {/* Skill Radar Chart (Only visible on screen in overview, not print) */}
                   {!printMode && (
@@ -531,7 +520,6 @@ const App: React.FC = () => {
                   {/* Mobile-only views for charts to prevent stacking too high */}
                   {!printMode && (
                     <div className="mt-6 lg:hidden flex flex-col gap-6">
-                       <ResourceChart printMode={printMode} />
                        <SkillRadar skills={RESUME_DATA.skills} printMode={printMode} />
                     </div>
                   )}
